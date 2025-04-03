@@ -21,8 +21,11 @@ public class Veiculo {
     private Double quilometragem;
     private Status status;
     private String chassi;
+    
+    private Carro carro;
+    private Moto moto;
 
-    public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi) {
+    public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Carro carro, Moto moto) {
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
@@ -32,6 +35,8 @@ public class Veiculo {
         this.quilometragem = quilometragem;
         this.status = status;
         this.chassi = chassi;
+        this.carro = carro;
+        this.moto = moto;
     }
 
     public String getMarca() {

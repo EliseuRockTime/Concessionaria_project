@@ -9,5 +9,6 @@ package projeto_concessionária.Model.enums;
  * @author Guilherme
  */
 public enum CargoFuncionario {
-    
+    FUNCIONARIO,
+    GERENTE;
 }
