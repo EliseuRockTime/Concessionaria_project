@@ -1,1 +1,32 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MovimentacaoController {
+    private List<Movimentacao> historico;
+
+    public MovimentacaoController() {
+        this.historico = new ArrayList<>();
+    }
+
+    public boolean registrarEntrada(Veiculo v, Funcionario responsavel) {
+        Movimentacao entrada = new Movimentacao(v, responsavel, LocalDate.now(), "Entrada");
+        return historico.add(entrada);
+    }
+
+    public boolean registrarSaida(Veiculo v, Funcionario responsavel) {
+        Movimentacao saida = new Movimentacao(v, responsavel, LocalDate.now(), "Saída");
+        return historico.add(saida);
+    }
+
+    public List<Movimentacao> listaHistorico(LocalDate inicio, LocalDate fim) {
+        List<Movimentacao> resultado = new ArrayList<>();
+        for (Movimentacao m : historico) {
+            if (!m.getData().isBefore(inicio) && !m.getData().isAfter(fim)) {
+                resultado.add(m);
+            }
+        }
+        return resultado;
+    }
+}
 
