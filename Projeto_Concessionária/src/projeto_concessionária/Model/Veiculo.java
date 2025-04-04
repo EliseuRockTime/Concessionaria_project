@@ -21,11 +21,10 @@ public class Veiculo {
     private Double quilometragem;
     private Status status;
     private String chassi;
+    private double preco;
     
-    private Carro carro;
-    private Moto moto;
 
-    public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Carro carro, Moto moto) {
+    public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Double preco) {
         this.marca = marca;
         this.modelo = modelo;
         this.placa = placa;
@@ -35,8 +34,7 @@ public class Veiculo {
         this.quilometragem = quilometragem;
         this.status = status;
         this.chassi = chassi;
-        this.carro = carro;
-        this.moto = moto;
+        this.preco = preco;
     }
 
     public String getMarca() {
@@ -110,8 +108,29 @@ public class Veiculo {
     public void setChassi(String chassi) {
         this.chassi = chassi;
     }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
     
-    
-    
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+               "marca='" + marca + '\'' +
+               ", modelo='" + modelo + '\'' +
+               ", placa='" + placa + '\'' +
+               ", anoFabricacao=" + anoFabricacao +
+               ", cor='" + cor + '\'' +
+               ", tipoCombustivel=" + tipoCombustivel +
+               ", quilometragem=" + quilometragem +
+               ", status=" + status +
+               ", chassi='" + chassi + '\'' +
+               ", preco=" + preco +
+               '}';
+    }
     
 }
