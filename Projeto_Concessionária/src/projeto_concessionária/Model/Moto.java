@@ -14,8 +14,8 @@ import projeto_concessionária.Model.enums.TipoCombustivel;
 public class Moto extends Veiculo {
     private Integer quantidadeDeRodas;
 
-    public Moto(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi) {
-        super(marca, modelo, placa, anoFabricacao, cor, tipoCombustivel, quilometragem, status, chassi);
+    public Moto(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, double preco) {
+        super(marca, modelo, placa, anoFabricacao, cor, tipoCombustivel, quilometragem, status, chassi,preco);
         this.quantidadeDeRodas = quantidadeDeRodas;
     }
 

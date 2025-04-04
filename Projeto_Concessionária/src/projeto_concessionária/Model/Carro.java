@@ -15,10 +15,21 @@ public class Carro extends Veiculo{
     
     private Integer quantidadeDeRodas;
 
-    public Carro(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Carro carro) {
-        super(marca, modelo, placa, anoFabricacao, cor, tipoCombustivel, quilometragem, status, chassi);
+    public Carro(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi,Integer quantidadeDeRodas,double preco) {
+        super(marca, modelo, placa, anoFabricacao, cor, tipoCombustivel, quilometragem, status, chassi,preco);
+        this.quantidadeDeRodas = quantidadeDeRodas;
+        
+    }
+
+    public Integer getQuantidadeDeRodas() {
+        return quantidadeDeRodas;
+    }
+
+    public void setQuantidadeDeRodas(Integer quantidadeDeRodas) {
         this.quantidadeDeRodas = quantidadeDeRodas;
     }
+    
+    
     
     
 }
