@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package projeto_concessionário.Controller;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 import projeto_concessionária.Model.Funcionario;
 
 
@@ -31,7 +32,4 @@ public class FuncionarioController {
     f.add(novoFuncionario);
     return true;
 }
-
- 
-}    
-    
+}
