@@ -7,8 +7,10 @@ package projeto_concessionário.Controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import projeto_concessionária.Model.Funcionario;
+import projeto_concessionária.Model.MovimentacaoEstoque;
 import projeto_concessionária.Model.Veiculo;
 /**
  *
@@ -20,27 +22,27 @@ public class MovimentacaoController {
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-    private List<Movimentacao> historico;
+    private List<MovimentacaoEstoque> historico;
 
     public MovimentacaoController() {
         this.historico = new ArrayList<>();
     }
 
     public boolean registrarEntrada(Veiculo v, Funcionario responsavel) {
-        Movimentacao entrada = new Movimentacao(v, responsavel, LocalDate.now(), "Entrada");
+        MovimentacaoEstoque entrada = new MovimentacaoEstoque("Entrada" , v, responsavel);
         return historico.add(entrada);
     }
 
     public boolean registrarSaida(Veiculo v, Funcionario responsavel) {
-        Movimentacao saida = new Movimentacao(v, responsavel, LocalDate.now(), "Saída");
+        MovimentacaoEstoque saida = new MovimentacaoEstoque("Saída", v, responsavel);
         return historico.add(saida);
     }
 
-    public List<Movimentacao> listaHistorico(LocalDate inicio, LocalDate fim) {
-        List<Movimentacao> resultado = new ArrayList<>();
-        for (Movimentacao m : historico) {
-            if (m.getData().isAfter(fim) || m.getData().isBefore(inicio)) {
-            } else {
+    public List<MovimentacaoEstoque> listaHistorico(Date inicio, Date fim) {
+        List<MovimentacaoEstoque> resultado = new ArrayList<>();
+        for (MovimentacaoEstoque m : historico) {
+            Date data = m.getDataHora();
+            if (!data.before(inicio) && !data.after(fim)) {
                 resultado.add(m);
             }
         }
