@@ -19,6 +19,18 @@ public class Moto extends Veiculo {
         this.quantidadeDeRodas = quantidadeDeRodas;
     }
 
+    public Integer getQuantidadeDeRodas() {
+        return quantidadeDeRodas;
+    }
+
+    public void setQuantidadeDeRodas(Integer quantidadeDeRodas) {
+        this.quantidadeDeRodas = quantidadeDeRodas;
+    }
+
+
+    
+    
+    
     
     
     
