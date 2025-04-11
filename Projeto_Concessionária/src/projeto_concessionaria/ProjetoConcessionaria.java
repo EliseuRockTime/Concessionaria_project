@@ -4,10 +4,8 @@
  */
 package projeto_concessionaria;
 
-import projeto_concessionaria.Model.Veiculo;
-import projeto_concessionaria.controller.VeiculoController;
-import projeto_concessionaria.model.enums.Status;
-import projeto_concessionaria.model.enums.TipoCombustivel;
+import javax.swing.JFrame;
+import projeto_concessionaria.view.TelaLogin;
 
 
 /**
@@ -15,13 +13,21 @@ import projeto_concessionaria.model.enums.TipoCombustivel;
  * @author Elise
  */
 public class ProjetoConcessionaria {
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        JFrame frame = new JFrame("Login");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);
         
+        TelaLogin login = new TelaLogin(frame); // passa o frame
+            frame.setContentPane(login);
+            frame.setVisible(true);
 
+        frame.setVisible(true);
     }
     
     
