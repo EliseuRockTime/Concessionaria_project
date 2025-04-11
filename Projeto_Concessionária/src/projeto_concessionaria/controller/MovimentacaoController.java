@@ -2,25 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projeto_concessionário.Controller;
+package projeto_concessionaria.controller;
 
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import projeto_concessionária.Model.Funcionario;
-import projeto_concessionária.Model.MovimentacaoEstoque;
-import projeto_concessionária.Model.Veiculo;
+import projeto_concessionaria.Model.Funcionario;
+import projeto_concessionaria.Model.MovimentacaoEstoque;
+import projeto_concessionaria.Model.Veiculo;
 /**
  *
  * @author Elise
  */
 public class MovimentacaoController {
-    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
     private List<MovimentacaoEstoque> historico;
 

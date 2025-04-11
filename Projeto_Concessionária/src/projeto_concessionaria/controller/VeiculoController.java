@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projeto_concessionário.Controller;
-import projeto_concessionária.Model.Veiculo;
+package projeto_concessionaria.controller;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import projeto_concessionária.Model.FiltroBusca;
 import java.util.stream.Collectors;
+import projeto_concessionaria.Model.FiltroBusca;
+import projeto_concessionaria.Model.Veiculo;
 
 /**
  *

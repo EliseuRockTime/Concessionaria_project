@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projeto_concessionária.Model;
+package projeto_concessionaria.Model;
 
-import projeto_concessionária.Model.enums.Status;
-import projeto_concessionária.Model.enums.TipoCombustivel;
+import projeto_concessionaria.model.enums.Status;
+import projeto_concessionaria.model.enums.TipoCombustivel;
+
 
 /**
  *
@@ -22,7 +23,7 @@ public class Veiculo {
     private Status status;
     private String chassi;
     private double preco;
-    
+
 
     public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Double preco) {
         this.marca = marca;
@@ -116,21 +117,21 @@ public class Veiculo {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-    
+
     @Override
     public String toString() {
         return "Veiculo{" +
-               "marca='" + marca + '\'' +
-               ", modelo='" + modelo + '\'' +
-               ", placa='" + placa + '\'' +
-               ", anoFabricacao=" + anoFabricacao +
-               ", cor='" + cor + '\'' +
-               ", tipoCombustivel=" + tipoCombustivel +
-               ", quilometragem=" + quilometragem +
-               ", status=" + status +
-               ", chassi='" + chassi + '\'' +
-               ", preco=" + preco +
-               '}';
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", placa='" + placa + '\'' +
+                ", anoFabricacao=" + anoFabricacao +
+                ", cor='" + cor + '\'' +
+                ", tipoCombustivel=" + tipoCombustivel +
+                ", quilometragem=" + quilometragem +
+                ", status=" + status +
+                ", chassi='" + chassi + '\'' +
+                ", preco=" + preco +
+                '}';
     }
-    
+
 }
