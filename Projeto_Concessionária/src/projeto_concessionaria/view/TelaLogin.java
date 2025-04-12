@@ -5,6 +5,7 @@
 package projeto_concessionaria.view;
 
 import javax.swing.JFrame;
+import projeto_concessionaria.controller.VeiculoController;
 
 /**
  *
@@ -32,6 +33,10 @@ public class TelaLogin extends javax.swing.JPanel {
         InputLoginPassword = new javax.swing.JTextField();
         SubmitLoginButton = new javax.swing.JButton();
         Imagem = new javax.swing.JLabel();
+
+        setMaximumSize(new java.awt.Dimension(622, 613));
+        setMinimumSize(new java.awt.Dimension(622, 613));
+        setName(""); // NOI18N
 
         InputLoginUser.setText("usuario123");
         InputLoginUser.addActionListener(new java.awt.event.ActionListener() {
@@ -109,10 +114,12 @@ public class TelaLogin extends javax.swing.JPanel {
     }//GEN-LAST:event_InputLoginPasswordActionPerformed
 
     private void SubmitLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitLoginButtonActionPerformed
-        TelaEstoque TelaDoEstoque = new TelaEstoque();
-        framePai.setContentPane(TelaDoEstoque);
-        framePai.revalidate();
-        framePai.repaint();
+        // Faz uma verificação se o usuário está cadastrado.
+        
+        framePai.dispose();       
+        
+        TelaPrincipal principal = new TelaPrincipal();
+        principal.setVisible(true);
     }//GEN-LAST:event_SubmitLoginButtonActionPerformed
 
 

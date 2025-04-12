@@ -1,21 +1,26 @@
-package projeto_concessionaria.view;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
+package projeto_concessionaria.view;
+
+import projeto_concessionaria.controller.VeiculoController;
 
 /**
  *
- * @author USER
+ * @author gabri
  */
-public class TelaEstoque extends javax.swing.JFrame {
 
+public class TelaEstoque extends javax.swing.JPanel {
+    private final VeiculoController controller;
+    
     /**
-     * Creates new form Painel
+     * Creates new form TelaEstoquePanel
+     * @param controller o controlador responsável pelos dados da tela de estoque
      */
-    public TelaEstoque() {
+    public TelaEstoque(VeiculoController controller) {
         initComponents();
+        this.controller = controller;
     }
 
     /**
@@ -27,17 +32,6 @@ public class TelaEstoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jMenuBar3 = new javax.swing.JMenuBar();
-        jMenu7 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
-        jMenu9 = new javax.swing.JMenu();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        label2 = new java.awt.Label();
-        jPanel4 = new javax.swing.JPanel();
         PnlRelatorio = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
@@ -49,31 +43,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        MnuCadastrarVeic = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        MnuCadastrarFunc = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        jMenu7.setText("File");
-        jMenuBar3.add(jMenu7);
-
-        jMenu8.setText("Edit");
-        jMenuBar3.add(jMenu8);
-
-        jMenu9.setText("jMenu9");
-
-        label2.setText("Veículos em estoque:");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PnlRelatorio.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -137,9 +106,7 @@ public class TelaEstoque extends javax.swing.JFrame {
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(129, 129, 129)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1))))
                 .addGap(0, 0, 0))
         );
@@ -176,142 +143,44 @@ public class TelaEstoque extends javax.swing.JFrame {
 
         PnlRelatorio.addTab("Consulta Veiculos", jPanel2);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlRelatorio)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PnlRelatorio)
-        );
-
-        jMenu3.setText("Arquivo");
-
-        jMenu5.setText("Veículos");
-
-        MnuCadastrarVeic.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        MnuCadastrarVeic.setText("Cadastrar");
-        MnuCadastrarVeic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnuCadastrarVeicActionPerformed(evt);
-            }
-        });
-        jMenu5.add(MnuCadastrarVeic);
-
-        jMenu3.add(jMenu5);
-
-        jMenu6.setText("Funcionário");
-
-        MnuCadastrarFunc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        MnuCadastrarFunc.setText("Cadastrar");
-        jMenu6.add(MnuCadastrarFunc);
-
-        jMenu3.add(jMenu6);
-
-        jMenuBar2.add(jMenu3);
-
-        jMenu4.setText("Ajuda");
-        jMenuBar2.add(jMenu4);
-
-        setJMenuBar(jMenuBar2);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(PnlRelatorio)
+                .addGap(3, 3, 3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(PnlRelatorio)
                 .addGap(0, 0, 0))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void MnuCadastrarVeicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCadastrarVeicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MnuCadastrarVeicActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaEstoque().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MnuCadastrarFunc;
-    private javax.swing.JMenuItem MnuCadastrarVeic;
     private javax.swing.JTabbedPane PnlRelatorio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private java.awt.Label label1;
-    private java.awt.Label label2;
     private java.awt.Label label3;
     // End of variables declaration//GEN-END:variables
 }
