@@ -22,7 +22,7 @@ public class Veiculo {
     private Double quilometragem;
     private Status status;
     private String chassi;
-    private double preco;
+    private Double preco;
 
 
     public Veiculo(String marca, String modelo, String placa, Integer anoFabricacao, String cor, TipoCombustivel tipoCombustivel, Double quilometragem, Status status, String chassi, Double preco) {
@@ -110,11 +110,11 @@ public class Veiculo {
         this.chassi = chassi;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 

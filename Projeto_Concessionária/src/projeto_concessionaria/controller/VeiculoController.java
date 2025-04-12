@@ -16,7 +16,7 @@ import projeto_concessionaria.Model.Veiculo;
  * @author gabri
  */
 public class VeiculoController {
-    List<Veiculo> ListaDeVeiculos = new ArrayList<>();
+    private static List<Veiculo> ListaDeVeiculos = new ArrayList<>();
  
     public void cadastrarVeiculo(Veiculo v) {
         ListaDeVeiculos.add(v);
@@ -46,6 +46,29 @@ public class VeiculoController {
 
         return veiculosFiltrados;
     }
+    
+    public void alterarVeiculo(Veiculo veiculoAlterado) {
+    for (int i = 0; i < ListaDeVeiculos.size(); i++) {
+        Veiculo v = ListaDeVeiculos.get(i);
+        if (v.getChassi().equals(veiculoAlterado.getChassi())) {
+            ListaDeVeiculos.set(i, veiculoAlterado);
+            System.out.println("Veículo alterado com sucesso!");
+            return;
+        }
+    }
+    System.out.println("Veículo não encontrado!");
+}
+    
+    public Veiculo buscarVeiculoPorChassi(String chassi) {
+    for (Veiculo v : ListaDeVeiculos) {
+        System.out.println("Verificando chassi: " + v.getChassi());
+        if (v.getChassi().equals(chassi)) {
+            return v;
+        }
+    }
+    System.out.println("Nenhum veículo com chassi: " + chassi);
+    return null;
+}
     
     public void removerVeiculo(String chassi) { 
         ListaDeVeiculos.removeIf(veiculo -> veiculo.getChassi().equals(chassi));
