@@ -4,16 +4,18 @@
  */
 package projeto_concessionaria.view;
 
+import javax.swing.JFrame;
+import projeto_concessionaria.controller.VeiculoController;
+
 /**
  *
  * @author Elise
  */
 public class TelaLogin extends javax.swing.JPanel {
-
-    /**
-     * Creates new form TelaLogin
-     */
-    public TelaLogin() {
+    private JFrame framePai;
+    
+    public TelaLogin(JFrame framePai) {
+        this.framePai = framePai;
         initComponents();
     }
 
@@ -26,51 +28,106 @@ public class TelaLogin extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        LoginInputContainer = new javax.swing.JPanel();
+        InputLoginUser = new javax.swing.JTextField();
+        InputLoginPassword = new javax.swing.JTextField();
+        SubmitLoginButton = new javax.swing.JButton();
+        Imagem = new javax.swing.JLabel();
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Logo_Inicial(4).png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(622, 613));
+        setMinimumSize(new java.awt.Dimension(622, 613));
+        setName(""); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 110, Short.MAX_VALUE))
+        InputLoginUser.setText("usuario123");
+        InputLoginUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputLoginUserActionPerformed(evt);
+            }
+        });
+
+        InputLoginPassword.setText("minha_senha");
+        InputLoginPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InputLoginPasswordActionPerformed(evt);
+            }
+        });
+
+        SubmitLoginButton.setText("Entrar");
+        SubmitLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitLoginButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout LoginInputContainerLayout = new javax.swing.GroupLayout(LoginInputContainer);
+        LoginInputContainer.setLayout(LoginInputContainerLayout);
+        LoginInputContainerLayout.setHorizontalGroup(
+            LoginInputContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginInputContainerLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(InputLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(InputLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SubmitLoginButton)
+                .addGap(0, 56, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 90, Short.MAX_VALUE))
+        LoginInputContainerLayout.setVerticalGroup(
+            LoginInputContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginInputContainerLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(LoginInputContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(InputLoginUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InputLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SubmitLoginButton))
+                .addGap(24, 24, 24))
         );
+
+        Imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Logo_Inicial(4).png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(LoginInputContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(Imagem)
+                .addGap(0, 0, 0)
+                .addComponent(LoginInputContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void InputLoginUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputLoginUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputLoginUserActionPerformed
+
+    private void InputLoginPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputLoginPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InputLoginPasswordActionPerformed
+
+    private void SubmitLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitLoginButtonActionPerformed
+        // Faz uma verificação se o usuário está cadastrado.
+        
+        framePai.dispose();       
+        
+        TelaPrincipal principal = new TelaPrincipal();
+        principal.setVisible(true);
+    }//GEN-LAST:event_SubmitLoginButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel Imagem;
+    private javax.swing.JTextField InputLoginPassword;
+    private javax.swing.JTextField InputLoginUser;
+    private javax.swing.JPanel LoginInputContainer;
+    private javax.swing.JButton SubmitLoginButton;
     // End of variables declaration//GEN-END:variables
 }
