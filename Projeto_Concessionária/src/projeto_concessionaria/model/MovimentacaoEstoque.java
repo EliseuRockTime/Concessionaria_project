@@ -5,26 +5,23 @@
 package projeto_concessionaria.Model;
 
 import java.util.Date;
+import projeto_concessionaria.model.enums.TipoMovimentacao;
 
 /**
  *
  * @author gabri
  */
 public class MovimentacaoEstoque {
-    private final String tipoMovimentacao;
+    private final TipoMovimentacao tipo; 
     private final Date dataHora; 
     private final Veiculo veiculo;
     private final Funcionario responsavel;
     
-    public MovimentacaoEstoque(String tipoMovimentacao, Veiculo veiculo, Funcionario responsavel) {
-        this.tipoMovimentacao = tipoMovimentacao;
+    public MovimentacaoEstoque(TipoMovimentacao tipo, Veiculo veiculo, Funcionario responsavel) {
         this.dataHora = new Date();
         this.responsavel = responsavel;
         this.veiculo = veiculo;
-    }
-
-    public String getTipoMovimentacao() {
-        return tipoMovimentacao;
+        this.tipo = tipo;
     }
 
     public Date getDataHora() {
@@ -38,5 +35,11 @@ public class MovimentacaoEstoque {
     public Funcionario getResponsavel() {
         return responsavel;
     }
+
+    public TipoMovimentacao getTipo() {
+        return tipo;
+    }
+    
+    
     
 }

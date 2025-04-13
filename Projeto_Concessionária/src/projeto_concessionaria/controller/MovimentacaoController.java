@@ -12,6 +12,7 @@ import java.util.List;
 import projeto_concessionaria.Model.Funcionario;
 import projeto_concessionaria.Model.MovimentacaoEstoque;
 import projeto_concessionaria.Model.Veiculo;
+import projeto_concessionaria.model.enums.TipoMovimentacao;
 /**
  *
  * @author Elise
@@ -19,19 +20,19 @@ import projeto_concessionaria.Model.Veiculo;
 public class MovimentacaoController {
 
 
-    private List<MovimentacaoEstoque> historico;
+    private final List<MovimentacaoEstoque> historico;
 
     public MovimentacaoController() {
         this.historico = new ArrayList<>();
     }
 
     public boolean registrarEntrada(Veiculo v, Funcionario responsavel) {
-        MovimentacaoEstoque entrada = new MovimentacaoEstoque("Entrada" , v, responsavel);
+        MovimentacaoEstoque entrada = new MovimentacaoEstoque(TipoMovimentacao.CRIAÇÃO , v, responsavel);
         return historico.add(entrada);
     }
 
     public boolean registrarSaida(Veiculo v, Funcionario responsavel) {
-        MovimentacaoEstoque saida = new MovimentacaoEstoque("Saída", v, responsavel);
+        MovimentacaoEstoque saida = new MovimentacaoEstoque(TipoMovimentacao.EXCLUSÃO, v, responsavel);
         return historico.add(saida);
     }
 
@@ -45,6 +46,12 @@ public class MovimentacaoController {
         }
         return resultado;
     }
+
+    public List<MovimentacaoEstoque> getHistorico() {
+        return historico;
+    }
+    
+    
 }
 
 

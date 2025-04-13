@@ -4,25 +4,20 @@
  */
 package projeto_concessionaria.view;
 
-import projeto_concessionaria.controller.FuncionarioController;
-import projeto_concessionaria.controller.VeiculoController;
 
 /**
  *
  * @author gabri
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-    private final VeiculoController VeiculoCont = new VeiculoController();
-    private final FuncionarioController FuncionarioCont = new FuncionarioController();
-    
     
     /**
      * Creates new form A1
      */
     public TelaPrincipal() {
         initComponents();
-        jTabbedPane1.addTab("Veículo", new TelaEstoque(VeiculoCont));
-        jTabbedPane1.addTab("Funcionário", new TelaFuncionarios(FuncionarioCont));
+        jTabbedPane1.addTab("Veículo", new TelaVeiculos());
+        jTabbedPane1.addTab("Funcionário", new TelaFuncionarios());
     }
 
     /**
