@@ -3,8 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package projeto_concessionaria.view;
-
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import projeto_concessionaria.Model.Funcionario;
 import projeto_concessionaria.controller.FuncionarioController;
+import projeto_concessionaria.model.enums.CargoFuncionario;
+import java.util.List;
 
 /**
  *
@@ -12,7 +17,8 @@ import projeto_concessionaria.controller.FuncionarioController;
  */
 public class TelaFuncionarios extends javax.swing.JPanel {
     
-    private final FuncionarioController controller = new FuncionarioController();
+   private FuncionarioController controller;
+   private final Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
     
     /**
      * Creates new form A1
@@ -20,7 +26,235 @@ public class TelaFuncionarios extends javax.swing.JPanel {
      */
     public TelaFuncionarios() {
         initComponents();
+        controller = new FuncionarioController();
+        btnAlterar.addActionListener(e -> {
+        mostrarDialogoAlterarFuncionario();
+        });
+        btnExcluir.addActionListener(e -> mostrarDialogoExcluirFuncionario());
+        
     }
+    
+    
+    private void mostrarMensagemCadastroSucesso() {
+    JDialog dialog = new JDialog (parentFrame, "Cadastro", true); 
+    dialog.setSize(300, 150);
+    dialog.setLayout(new FlowLayout());
+
+    JLabel sucessoLabel = new JLabel("Cadastro realizado com sucesso!");
+    JButton okButton = new JButton("OK");
+
+    okButton.addActionListener(e -> dialog.dispose());
+
+    dialog.add(sucessoLabel);
+    dialog.add(okButton);
+
+    dialog.setLocationRelativeTo(this);  
+    dialog.setVisible(true);  
+}
+   private void mostrarDialogoAlterarFuncionario() {
+    int linhaSelecionada = tabelaFuncionario.getSelectedRow();
+
+    if (linhaSelecionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecione um funcionário para alterar.");
+        return;
+    }
+
+    String cpf = (String) tabelaFuncionario.getValueAt(linhaSelecionada, 1);
+
+   
+    Funcionario funcionarioOriginal = controller.buscarPorCPF(cpf);
+
+    if (funcionarioOriginal == null) {
+        JOptionPane.showMessageDialog(this, "Funcionário não encontrado.");
+        return;
+    }
+
+    JDialog dialog = new JDialog(parentFrame, "Alterar Funcionário", true);
+    dialog.setLayout(new GridBagLayout());
+    dialog.setSize(400, 400);
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 5, 5, 5);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+
+    JTextField campoNome = new JTextField(funcionarioOriginal.getNome());
+    JTextField campoCPF = new JTextField(funcionarioOriginal.getCpf());
+    JTextField campoTelefone = new JTextField(funcionarioOriginal.getTelefone());
+    JTextField campoEmail = new JTextField(funcionarioOriginal.getEmail());
+    JTextField campoLogin = new JTextField(funcionarioOriginal.getLogin());
+    JPasswordField campoSenha = new JPasswordField(funcionarioOriginal.getSenha());
+    JTextField campoCargo = new JTextField(funcionarioOriginal.getCargo().toString());
+
+    int linha = 0;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Nome:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoNome, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("CPF:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoCPF, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Telefone:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoTelefone, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Email:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoEmail, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Login:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoLogin, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Senha:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoSenha, gbc); linha++;
+
+    gbc.gridx = 0; gbc.gridy = linha;
+    dialog.add(new JLabel("Cargo:"), gbc);
+    gbc.gridx = 1;
+    dialog.add(campoCargo, gbc); linha++;
+
+    JButton botaoSalvar = new JButton("Salvar");
+    gbc.gridx = 0; gbc.gridy = linha;
+    gbc.gridwidth = 2;
+    dialog.add(botaoSalvar, gbc);
+
+    botaoSalvar.addActionListener(e -> {
+        try {
+            funcionarioOriginal.setNome(campoNome.getText());
+            funcionarioOriginal.setCpf(campoCPF.getText());
+            funcionarioOriginal.setTelefone(campoTelefone.getText());
+            funcionarioOriginal.setEmail(campoEmail.getText());
+            funcionarioOriginal.setLogin(campoLogin.getText());
+            funcionarioOriginal.setSenha(new String(campoSenha.getPassword()));
+            try {
+                CargoFuncionario cargo = CargoFuncionario.valueOf(campoCargo.getText().toUpperCase().trim());
+                funcionarioOriginal.setCargo(cargo);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(dialog, "Cargo inválido.");
+                return;
+            }
+
+            controller.alterarFuncionario(funcionarioOriginal); 
+
+            JOptionPane.showMessageDialog(dialog, "Funcionário atualizado com sucesso!");
+            atualizarTabela(); 
+            dialog.dispose();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(dialog, "Erro ao salvar alterações: " + ex.getMessage());
+        }
+    });
+
+    dialog.setLocationRelativeTo(this);
+    dialog.setVisible(true);
+}
+   
+   private void mostrarDialogoExcluirFuncionario() {
+    int linhaSelecionada = tabelaFuncionario.getSelectedRow();
+
+    if (linhaSelecionada == -1) {
+        JOptionPane.showMessageDialog(this, "Selecione um funcionário para excluir.");
+        return;
+    }
+
+    String cpf = ((String) tabelaFuncionario.getValueAt(linhaSelecionada, 1)).trim();
+
+    
+    Funcionario funcionario = controller.buscarPorCPF(cpf);
+
+    if (funcionario == null) {
+        JOptionPane.showMessageDialog(this, "Funcionário não encontrado.");
+        return;
+    }
+
+    // Criar o JDialog de confirmação
+    JDialog dialog = new JDialog(parentFrame, "Confirmar Exclusão", true);
+    dialog.setLayout(new GridBagLayout());
+    dialog.setSize(400, 200);
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(10, 10, 10, 10);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+
+    JLabel mensagem = new JLabel("<html>Deseja realmente excluir o funcionário:<br><b>" +
+        funcionario.getNome() + " (" + funcionario.getCpf() + ")</b>?</html>");
+    dialog.add(mensagem, gbc);
+
+    JButton btnConfirmar = new JButton("Confirmar");
+    JButton btnCancelar = new JButton("Cancelar");
+
+    gbc.gridy++;
+    gbc.gridwidth = 1;
+    dialog.add(btnConfirmar, gbc);
+
+    gbc.gridx = 1;
+    dialog.add(btnCancelar, gbc);
+
+   
+    btnConfirmar.addActionListener(e -> {
+        controller.removerFuncionario(cpf);
+        atualizarTabela(); 
+        dialog.dispose();
+        JOptionPane.showMessageDialog(this, "Funcionário excluído com sucesso!");
+    });
+
+    
+    btnCancelar.addActionListener(e -> dialog.dispose());
+
+    dialog.setLocationRelativeTo(this);
+    dialog.setVisible(true);
+}
+
+
+    
+    
+   private void atualizarTabela() {
+    List<Funcionario> listaFuncionarios = controller.listarFuncionarios();
+    System.out.println("Atualizando tabela..."); 
+    System.out.println("Número de funcionários: " + listaFuncionarios.size()); 
+
+   
+    DefaultTableModel modelo = (DefaultTableModel) tabelaFuncionario.getModel();
+    modelo.setRowCount(0); 
+
+    
+    for (Funcionario funcionario : listaFuncionarios) {
+        System.out.println("Adicionando: " + funcionario.getNome());
+        modelo.addRow(new Object[] {
+            funcionario.getNome(),
+            funcionario.getCpf(),
+            funcionario.getTelefone(),
+            funcionario.getEmail(),
+            funcionario.getCargo(),
+            funcionario.getLogin()
+        });
+    }
+}
+   private void limparCampos() {
+    txtNomeCompleto.setText("");
+    txtCPF.setText("");
+    txtTelefone.setText("");
+    txtEmail.setText("");
+    txtLogin.setText("");
+    txtSenha.setText("");
+    txtCargo.setText(""); 
+}
+
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,12 +268,12 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jButton3 = new javax.swing.JButton();
+        txtPesquisarCPF = new javax.swing.JFormattedTextField();
+        btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        tabelaFuncionario = new javax.swing.JTable();
+        btnAlterar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,34 +282,39 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        txtCPF = new javax.swing.JFormattedTextField();
+        txtNomeCompleto = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtCargo = new javax.swing.JTextField();
+        txtLogin = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
+        btnConfirmarCadastro = new javax.swing.JButton();
+        btnCancelarCadastro = new javax.swing.JButton();
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jLabel8.setText("CPF:");
 
         try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtPesquisarCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtPesquisarCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField2ActionPerformed(evt);
+                txtPesquisarCPFActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Pesquisar");
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFuncionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -87,7 +326,7 @@ public class TelaFuncionarios extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true, true
@@ -101,11 +340,21 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaFuncionario);
 
-        jButton4.setText("Alterar");
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Excluir");
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,13 +366,13 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
+                        .addComponent(txtPesquisarCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -132,15 +381,15 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesquisarCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
@@ -161,40 +410,45 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         jLabel7.setText("Senha:");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                txtCPFActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNomeCompleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNomeCompletoActionPerformed(evt);
             }
         });
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                txtLoginActionPerformed(evt);
             }
         });
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txtSenhaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Confirmar");
-
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmarCadastro.setText("Confirmar");
+        btnConfirmarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnConfirmarCadastroActionPerformed(evt);
+            }
+        });
+
+        btnCancelarCadastro.setText("Cancelar");
+        btnCancelarCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarCadastroActionPerformed(evt);
             }
         });
 
@@ -208,36 +462,36 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnConfirmarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField4))
+                            .addComponent(txtCargo))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPasswordField1))
+                            .addComponent(txtSenha))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -248,34 +502,34 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5))
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnConfirmarCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -293,39 +547,100 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_txtCPFActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNomeCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCompletoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNomeCompletoActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtLoginActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarCadastroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarCadastroActionPerformed
 
-    private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+    private void txtPesquisarCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisarCPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+    }//GEN-LAST:event_txtPesquisarCPFActionPerformed
+
+    private void btnConfirmarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarCadastroActionPerformed
+       
+    String nome = txtNomeCompleto.getText();
+    String cpf = txtCPF.getText();
+    String telefone = txtTelefone.getText();
+    String email = txtEmail.getText();
+    String login = txtLogin.getText();
+    String senha = new String(txtSenha.getPassword());
+    CargoFuncionario cargo = CargoFuncionario.valueOf(txtCargo.getText());
+    
+
+    Funcionario novoFuncionario = new Funcionario(nome, cpf, telefone, email, cargo, login, senha);
+
+    
+    if (controller.cadastrarFuncionario(novoFuncionario)) {
+        System.out.println("Novo funcionário adicionado: " + novoFuncionario.getNome());
+        mostrarMensagemCadastroSucesso();
+        atualizarTabela();  
+    } else {
+        JOptionPane.showMessageDialog(this, "Erro ao cadastrar funcionário.");
+    }
+    
+    limparCampos();
+    
+    
+    }//GEN-LAST:event_btnConfirmarCadastroActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        String cpf = txtPesquisarCPF.getText().trim();
+
+    if (cpf.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Digite um CPF para buscar.");
+        return;
+    }
+
+    
+    Funcionario encontrado = controller.buscarPorCPF(cpf);
+
+    DefaultTableModel modelo = (DefaultTableModel) tabelaFuncionario.getModel();
+    modelo.setRowCount(0); 
+
+    if (encontrado != null) {
+        modelo.addRow(new Object[]{
+            encontrado.getNome(),
+            encontrado.getCpf(),
+            encontrado.getTelefone(),
+            encontrado.getEmail(),
+            encontrado.getCargo(),
+            encontrado.getLogin()
+        });
+    } else {
+        JOptionPane.showMessageDialog(this, "Funcionário não encontrado.");
+    }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelarCadastro;
+    private javax.swing.JButton btnConfirmarCadastro;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -336,14 +651,16 @@ public class TelaFuncionarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tabelaFuncionario;
+    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JTextField txtCargo;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtNomeCompleto;
+    private javax.swing.JFormattedTextField txtPesquisarCPF;
+    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
