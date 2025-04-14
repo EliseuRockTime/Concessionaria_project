@@ -18,7 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import projeto_concessionaria.Model.FiltroBusca;
+import projeto_concessionaria.Model.Funcionario;
 import projeto_concessionaria.Model.Veiculo;
+import projeto_concessionaria.controller.MovimentacaoController;
 import projeto_concessionaria.controller.VeiculoController;
 import projeto_concessionaria.model.enums.Status;
 import projeto_concessionaria.model.enums.TipoCombustivel;
@@ -29,14 +31,19 @@ import projeto_concessionaria.model.enums.TipoCombustivel;
  */
 public class TelaVeiculos extends javax.swing.JPanel {
     private final VeiculoController controller = new VeiculoController();
+    private final MovimentacaoController ControllerDaMovimentacao;
+    private final Funcionario UsuarioLogado;
+    private final Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
 
-    public TelaVeiculos() {
+    public TelaVeiculos(MovimentacaoController ControllerDaMovimentacao, Funcionario UsuarioLogado) {
         initComponents();
         btnFiltro.addActionListener(e ->{
             mostrarDialogoFiltro();
         });
         btnAlterar.addActionListener(e -> mostrarDialogoAlterar());
         btnExcluir.addActionListener(e -> mostrarDialogoExcluir());
+        this.ControllerDaMovimentacao = ControllerDaMovimentacao;
+        this.UsuarioLogado = UsuarioLogado;
     }
     
     private FiltroBusca filtroAtual;
@@ -47,7 +54,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
     private JTextField campoPrecoMin;
     private JTextField campoPrecoMax;
     private JComboBox campoStatus;
-    private final Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+    
     
     private void mostrarDialogoFiltro() {
         
@@ -280,7 +287,6 @@ public class TelaVeiculos extends javax.swing.JPanel {
 
         String chassi = ((String) tabelaVeiculos.getValueAt(linhaSelecionada, 8)).trim();
 
-        VeiculoController controller = new VeiculoController();
         Veiculo veiculo = controller.buscarVeiculoPorChassi(chassi);
 
         if (veiculo == null) {
@@ -316,6 +322,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
 
         btnConfirmar.addActionListener(e -> {
             controller.removerVeiculo(chassi);
+            ControllerDaMovimentacao.registrarSaida(veiculo, UsuarioLogado);
             preencherTabelaVeiculos(); 
             dialog.dispose();
             JOptionPane.showMessageDialog(this, "Veículo excluído com sucesso!");
@@ -669,10 +676,18 @@ public class TelaVeiculos extends javax.swing.JPanel {
             String chassi = txtChassi.getText();
             Status status = Status.valueOf(txtStatus.getText().toUpperCase());
 
+            for (Veiculo veiculoExistente : controller.ListarVeiculos()) {
+                if (veiculoExistente.getChassi().equalsIgnoreCase(txtChassi.getText())) {
+                    JOptionPane.showMessageDialog(this, "Já existe um veículo com esse chassi!");
+                    return; // interrompe o processo
+                }
+            }
+
             Veiculo v = new Veiculo(marca,modelo,placa,AnoFabricacao,cor,tipoCombustivel,quilometragem,status,chassi,preco);
 
-            VeiculoController controller = new VeiculoController();
             controller.cadastrarVeiculo(v);
+            ControllerDaMovimentacao.registrarEntrada(v, UsuarioLogado);
+            
             preencherTabelaVeiculos();
 
             JOptionPane.showMessageDialog(this, "Veículo adicionado com sucesso!");
@@ -696,15 +711,16 @@ public class TelaVeiculos extends javax.swing.JPanel {
 
         for (Veiculo v : listaFiltrada) {
             modelo.addRow(new Object[]{
-                v.getChassi(),
+                
                 v.getMarca(),
                 v.getModelo(),
                 v.getPlaca(),
+                v.getAnoFabricacao(),
+                v.getCor(),
                 v.getPreco(),
                 v.getTipoCombustivel(),
                 v.getQuilometragem(),
                 v.getStatus(),
-                v.getCor()
             });
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed

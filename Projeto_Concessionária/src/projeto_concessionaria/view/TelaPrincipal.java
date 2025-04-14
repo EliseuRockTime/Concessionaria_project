@@ -4,6 +4,9 @@
  */
 package projeto_concessionaria.view;
 
+import projeto_concessionaria.Model.Funcionario;
+import projeto_concessionaria.controller.MovimentacaoController;
+
 
 /**
  *
@@ -11,13 +14,19 @@ package projeto_concessionaria.view;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
     
+    private final MovimentacaoController ControllerDaMovimentacao = new MovimentacaoController();
+    private final Funcionario UsuarioLogado;
+    
     /**
      * Creates new form A1
+     * @param UsuarioLogado
      */
-    public TelaPrincipal() {
+    public TelaPrincipal(Funcionario UsuarioLogado) {
         initComponents();
-        jTabbedPane1.addTab("Veículo", new TelaVeiculos());
+        this.UsuarioLogado = UsuarioLogado;
+        jTabbedPane1.addTab("Veículo", new TelaVeiculos(ControllerDaMovimentacao, UsuarioLogado));
         jTabbedPane1.addTab("Funcionário", new TelaFuncionarios());
+        jTabbedPane1.addTab("Movimentações", new TelaMovimentacoes(ControllerDaMovimentacao));
     }
 
     /**
@@ -55,35 +64,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                TelaPrincipal tela = new TelaPrincipal();
+                tela.setVisible(true);
             }
+            
         });
     }
 
