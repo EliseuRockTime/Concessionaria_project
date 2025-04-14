@@ -29,23 +29,36 @@ public class VeiculoController {
         }
         return ListaDeVeiculos;
     }
-    
+
     public List<Veiculo> ListarVeiculosFiltrados(FiltroBusca filtro) {
         List<Veiculo> veiculosFiltrados = ListaDeVeiculos.stream()
-            .filter(v -> filtro.getMarca() == null || v.getMarca().equalsIgnoreCase(filtro.getMarca()))
-            .filter(v -> filtro.getModelo() == null || v.getModelo().equalsIgnoreCase(filtro.getModelo()))
-            .filter(v -> filtro.getAnoMin() == null || v.getAnoFabricacao() >= filtro.getAnoMin())
-            .filter(v -> filtro.getAnoMax() == null || v.getAnoFabricacao() <= filtro.getAnoMax())
-            .filter(v -> filtro.getPrecoMin() == null || v.getPreco() >= filtro.getPrecoMin())
-            .filter(v -> filtro.getPrecoMax() == null || v.getPreco() <= filtro.getPrecoMax())
-            .filter(v -> filtro.getStatus() == null || v.getStatus().equals(filtro.getStatus()))
-            .collect(Collectors.toList());
+                .filter(v -> filtro.getMarca() == null || v.getMarca().equalsIgnoreCase(filtro.getMarca()))
+                .filter(v -> filtro.getModelo() == null || v.getModelo().equalsIgnoreCase(filtro.getModelo()))
+                .filter(v -> {
+                    Integer anoMin = filtro.getAnoMin();
+                    return anoMin == null || v.getAnoFabricacao() >= anoMin;
+                })
+                .filter(v -> {
+                    Integer anoMax = filtro.getAnoMax();
+                    return anoMax == null || v.getAnoFabricacao() <= anoMax;
+                })
+                .filter(v -> {
+                    Double precoMin = filtro.getPrecoMin();
+                    return precoMin == null || v.getPreco() >= precoMin;
+                })
+                .filter(v -> {
+                    Double precoMax = filtro.getPrecoMax();
+                    return precoMax == null || v.getPreco() <= precoMax;
+                })
+                .filter(v -> filtro.getStatus() == null || v.getStatus().equals(filtro.getStatus()))
+                .collect(Collectors.toList());
 
         System.out.println("Veículos filtrados:");
         veiculosFiltrados.forEach(System.out::println);
 
         return veiculosFiltrados;
     }
+
     
     public void alterarVeiculo(Veiculo veiculoAlterado) {
     for (int i = 0; i < ListaDeVeiculos.size(); i++) {

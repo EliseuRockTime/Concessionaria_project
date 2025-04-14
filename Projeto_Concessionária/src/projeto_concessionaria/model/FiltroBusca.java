@@ -40,7 +40,7 @@ public class FiltroBusca {
         return anoMin;
     }
 
-    public void setAnoMin(int anoMin) {
+    public void setAnoMin(Integer anoMin) {
         this.anoMin = anoMin;
     }
 
@@ -48,7 +48,7 @@ public class FiltroBusca {
         return anoMax;
     }
 
-    public void setAnoMax(int anoMax) {
+    public void setAnoMax(Integer anoMax) {
         this.anoMax = anoMax;
     }
 
@@ -64,7 +64,7 @@ public class FiltroBusca {
         return precoMin;
     }
 
-    public void setPrecoMin(double precoMin) {
+    public void setPrecoMin(Double precoMin) {
         this.precoMin = precoMin;
     }
 
@@ -72,7 +72,7 @@ public class FiltroBusca {
         return precoMax;
     }
 
-    public void setPrecoMax(double precoMax) {
+    public void setPrecoMax(Double precoMax) {
         this.precoMax = precoMax;
     }
 

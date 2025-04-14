@@ -44,6 +44,13 @@ public class TelaVeiculos extends javax.swing.JPanel {
         btnExcluir.addActionListener(e -> mostrarDialogoExcluir());
         this.ControllerDaMovimentacao = ControllerDaMovimentacao;
         this.UsuarioLogado = UsuarioLogado;
+        
+        
+        Veiculo v1 = new Veiculo("Honda", "Civic", "gab-123", 2014, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "123", 79.90);
+        Veiculo v2 = new Veiculo("Nissan", "Kicks", "gab-123", 2014, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "321", 79.90);
+        controller.cadastrarVeiculo(v1);
+        controller.cadastrarVeiculo(v2);
+        preencherTabelaVeiculos(); 
     }
     
     private FiltroBusca filtroAtual;
@@ -132,20 +139,24 @@ public class TelaVeiculos extends javax.swing.JPanel {
     private void aplicarFiltro() {
         filtroAtual = new FiltroBusca();
 
-        filtroAtual.setMarca(campoMarcaFiltro.getText().isEmpty() ? null : campoMarcaFiltro.getText());
-        filtroAtual.setModelo(campoModeloFiltro.getText().isEmpty() ? null : campoModeloFiltro.getText());
-
         try {
+
+            filtroAtual.setMarca(campoMarcaFiltro.getText().isEmpty() ? null : campoMarcaFiltro.getText());
+            filtroAtual.setModelo(campoModeloFiltro.getText().isEmpty() ? null : campoModeloFiltro.getText());
+
+
             filtroAtual.setAnoMin(campoAnoMin.getText().isEmpty() ? null : Integer.parseInt(campoAnoMin.getText()));
+
             filtroAtual.setAnoMax(campoAnoMax.getText().isEmpty() ? null : Integer.parseInt(campoAnoMax.getText()));
+            
             filtroAtual.setPrecoMin(campoPrecoMin.getText().isEmpty() ? null : Double.parseDouble(campoPrecoMin.getText()));
             filtroAtual.setPrecoMax(campoPrecoMax.getText().isEmpty() ? null : Double.parseDouble(campoPrecoMax.getText()));
+            filtroAtual.setStatus((Status) campoStatus.getSelectedItem());
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Preencha os campos numéricos corretamente.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        filtroAtual.setStatus((Status) campoStatus.getSelectedItem());
 
 
         System.out.println("Marca: " + filtroAtual.getMarca());
