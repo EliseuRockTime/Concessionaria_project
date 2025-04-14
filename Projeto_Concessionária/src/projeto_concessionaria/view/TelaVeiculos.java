@@ -375,9 +375,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
         txtPlaca.setText("");
         txtAnoFabricacao.setText("");
         txtPreco.setText("");
-        txtTipoCombustivel.setText("");
         txtQuilometragem.setText("");
-        txtStatus.setText("");
         txtCor.setText("");
     }
     
@@ -393,13 +391,14 @@ public class TelaVeiculos extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        InputChassi = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaVeiculos = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnFiltro = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -416,13 +415,13 @@ public class TelaVeiculos extends javax.swing.JPanel {
         txtPlaca = new javax.swing.JTextField();
         txtAnoFabricacao = new javax.swing.JTextField();
         txtPreco = new javax.swing.JTextField();
-        txtTipoCombustivel = new javax.swing.JTextField();
         txtQuilometragem = new javax.swing.JTextField();
-        txtStatus = new javax.swing.JTextField();
         txtCor = new javax.swing.JTextField();
         txtChassi = new javax.swing.JTextField();
         btnAdicionar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        InputTipoCombustivel = new javax.swing.JComboBox<>();
+        InputStatus = new javax.swing.JComboBox<>();
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
@@ -481,6 +480,13 @@ public class TelaVeiculos extends javax.swing.JPanel {
             }
         });
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -491,14 +497,15 @@ public class TelaVeiculos extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(InputChassi, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -507,16 +514,18 @@ public class TelaVeiculos extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(InputChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(181, Short.MAX_VALUE))
         );
@@ -564,6 +573,10 @@ public class TelaVeiculos extends javax.swing.JPanel {
 
         jButton2.setText("Cancelar");
 
+        InputTipoCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gasolina", "Etanol", "Diesel", "Flex", "Elétrico", "Híbrido" }));
+
+        InputStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponivel", "Manutencao" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -587,18 +600,18 @@ public class TelaVeiculos extends javax.swing.JPanel {
                         .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtChassi)
-                        .addComponent(txtMarca)
-                        .addComponent(txtModelo)
-                        .addComponent(txtPlaca)
-                        .addComponent(txtTipoCombustivel)
-                        .addComponent(txtCor, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                        .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPreco)
-                        .addComponent(txtQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtStatus)))
-                .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(InputStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(InputTipoCombustivel, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtChassi, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtCor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtQuilometragem, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtAnoFabricacao, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGap(128, 128, 128))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -630,7 +643,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtTipoCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(InputTipoCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -638,7 +651,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(InputStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -682,10 +695,10 @@ public class TelaVeiculos extends javax.swing.JPanel {
             Integer AnoFabricacao = Integer.parseInt(txtAnoFabricacao.getText());
             String cor = txtCor.getText();
             Double preco = Double.parseDouble(txtPreco.getText().replace(",","."));
-            TipoCombustivel tipoCombustivel = TipoCombustivel.valueOf(txtTipoCombustivel.getText().toUpperCase());
+            TipoCombustivel tipoCombustivel = TipoCombustivel.valueOf(InputTipoCombustivel.getSelectedItem().toString().toUpperCase());
             Double quilometragem = Double.parseDouble(txtQuilometragem.getText());
             String chassi = txtChassi.getText();
-            Status status = Status.valueOf(txtStatus.getText().toUpperCase());
+            Status status = Status.valueOf(InputStatus.getSelectedItem().toString().toUpperCase());
 
             for (Veiculo veiculoExistente : controller.ListarVeiculos()) {
                 if (veiculoExistente.getChassi().equalsIgnoreCase(txtChassi.getText())) {
@@ -709,32 +722,36 @@ public class TelaVeiculos extends javax.swing.JPanel {
         limparCamposCadastro();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
-    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        if (filtroAtual == null) {
-            JOptionPane.showMessageDialog(this, "Nenhum filtro aplicado!");
-            return;
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {
+        String valorDoInput = InputChassi.getText();
+        Veiculo veiculoDeChassiCorrespondente = null;
+
+        for (Veiculo v : controller.ListarVeiculos()) {
+            if (v.getChassi().equals(valorDoInput)) {
+                veiculoDeChassiCorrespondente = v;
+
+                DefaultTableModel modelo = (DefaultTableModel) tabelaVeiculos.getModel();
+                modelo.setRowCount(0);
+                modelo.addRow(new Object[] {
+                        v.getMarca(),
+                        v.getModelo(),
+                        v.getPlaca(),
+                        v.getAnoFabricacao(),
+                        v.getCor(),
+                        v.getPreco(),
+                        v.getTipoCombustivel(),
+                        v.getQuilometragem(),
+                        v.getStatus()
+                });
+
+                break; // Já encontrou, não precisa continuar
+            }
         }
 
-        List<Veiculo> listaFiltrada = controller.ListarVeiculosFiltrados(filtroAtual);
-
-        DefaultTableModel modelo = (DefaultTableModel) tabelaVeiculos.getModel();
-        modelo.setRowCount(0);
-
-        for (Veiculo v : listaFiltrada) {
-            modelo.addRow(new Object[]{
-                
-                v.getMarca(),
-                v.getModelo(),
-                v.getPlaca(),
-                v.getAnoFabricacao(),
-                v.getCor(),
-                v.getPreco(),
-                v.getTipoCombustivel(),
-                v.getQuilometragem(),
-                v.getStatus(),
-            });
+        if (veiculoDeChassiCorrespondente == null) {
+            JOptionPane.showMessageDialog(this, "Não foi encontrado um veiculo com este chassi");
         }
-    }//GEN-LAST:event_btnPesquisarActionPerformed
+    }
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
@@ -744,10 +761,20 @@ public class TelaVeiculos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFiltroActionPerformed
 
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        // TODO add your handling code here:
+        preencherTabelaVeiculos();
+        
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField InputChassi;
+    private javax.swing.JComboBox<String> InputStatus;
+    private javax.swing.JComboBox<String> InputTipoCombustivel;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFiltro;
     private javax.swing.JButton btnPesquisar;
@@ -767,7 +794,6 @@ public class TelaVeiculos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTable tabelaVeiculos;
     private javax.swing.JTextField txtAnoFabricacao;
     private javax.swing.JTextField txtChassi;
@@ -777,7 +803,5 @@ public class TelaVeiculos extends javax.swing.JPanel {
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPreco;
     private javax.swing.JTextField txtQuilometragem;
-    private javax.swing.JTextField txtStatus;
-    private javax.swing.JTextField txtTipoCombustivel;
     // End of variables declaration//GEN-END:variables
 }

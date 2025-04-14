@@ -54,18 +54,19 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField11" pref="342" max="32767" attributes="0"/>
+                              <Component id="InputChassi" pref="345" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="388" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnPesquisar" alignment="0" pref="92" max="32767" attributes="0"/>
-                          <Component id="btnAlterar" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnExcluir" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnFiltro" alignment="0" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnAtualizar" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btnExcluir" min="-2" pref="92" max="-2" attributes="0"/>
+                          <Component id="btnFiltro" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                          <Component id="btnAlterar" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                          <Component id="btnPesquisar" min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -75,19 +76,21 @@
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField11" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="InputChassi" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="btnPesquisar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="btnAlterar" min="-2" pref="44" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnFiltro" min="-2" pref="43" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnExcluir" min="-2" pref="43" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnAtualizar" min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" min="-2" pref="285" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="285" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="181" max="32767" attributes="0"/>
                   </Group>
@@ -100,7 +103,7 @@
                 <Property name="text" type="java.lang.String" value="Chassi:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField11">
+            <Component class="javax.swing.JTextField" name="InputChassi">
             </Component>
             <Component class="javax.swing.JButton" name="btnPesquisar">
               <Properties>
@@ -162,6 +165,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFiltroActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnAtualizar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Atualizar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtualizarActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel1">
@@ -197,20 +208,20 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="133" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="InputStatus" alignment="0" max="32767" attributes="0"/>
+                              <Component id="InputTipoCombustivel" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtChassi" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtMarca" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtModelo" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtPlaca" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtTipoCombustivel" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtCor" alignment="0" pref="184" max="32767" attributes="0"/>
-                              <Component id="txtAnoFabricacao" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
                               <Component id="txtPreco" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtQuilometragem" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                              <Component id="txtStatus" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtQuilometragem" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtAnoFabricacao" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -250,7 +261,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTipoCombustivel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="InputTipoCombustivel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -260,7 +271,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="InputStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -341,11 +352,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrecoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtTipoCombustivel">
-            </Component>
             <Component class="javax.swing.JTextField" name="txtQuilometragem">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtStatus">
             </Component>
             <Component class="javax.swing.JTextField" name="txtCor">
             </Component>
@@ -366,6 +373,36 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="InputTipoCombustivel">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="6">
+                    <StringItem index="0" value="Gasolina"/>
+                    <StringItem index="1" value="Etanol"/>
+                    <StringItem index="2" value="Diesel"/>
+                    <StringItem index="3" value="Flex"/>
+                    <StringItem index="4" value="El&#xe9;trico"/>
+                    <StringItem index="5" value="H&#xed;brido"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="InputStatus">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="2">
+                    <StringItem index="0" value="Disponivel"/>
+                    <StringItem index="1" value="Manutencao"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
