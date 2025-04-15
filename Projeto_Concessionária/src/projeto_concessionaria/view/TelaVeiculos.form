@@ -382,8 +382,8 @@
                     <StringItem index="1" value="Etanol"/>
                     <StringItem index="2" value="Diesel"/>
                     <StringItem index="3" value="Flex"/>
-                    <StringItem index="4" value="El&#xe9;trico"/>
-                    <StringItem index="5" value="H&#xed;brido"/>
+                    <StringItem index="4" value="Eletrico"/>
+                    <StringItem index="5" value="Hibrido"/>
                   </StringArray>
                 </Property>
               </Properties>

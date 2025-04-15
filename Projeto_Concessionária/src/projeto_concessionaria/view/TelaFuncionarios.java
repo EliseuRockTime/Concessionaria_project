@@ -612,6 +612,17 @@ public class TelaFuncionarios extends javax.swing.JPanel {
     CargoFuncionario cargo = CargoFuncionario.valueOf(CargoComboBox.getSelectedItem().toString().toUpperCase());
     
 
+    for (Funcionario f: controller.listarFuncionarios()) { 
+        if (f.getCpf().equals(cpf)) {
+            JOptionPane.showMessageDialog(this, "Já existe um funcionário com esse CPF.");
+            return;
+        }
+        if (f.getLogin().equals(login)) {
+            JOptionPane.showMessageDialog(this, "Já existe um funcionário com esse login.");
+            return;
+        }
+    }
+    
     Funcionario novoFuncionario = new Funcionario(nome, cpf, telefone, email, cargo, login, senha);
 
     

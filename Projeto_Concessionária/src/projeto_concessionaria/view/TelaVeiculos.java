@@ -590,7 +590,7 @@ public class TelaVeiculos extends javax.swing.JPanel {
 
         jButton2.setText("Cancelar");
 
-        InputTipoCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gasolina", "Etanol", "Diesel", "Flex", "Elétrico", "Híbrido" }));
+        InputTipoCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gasolina", "Etanol", "Diesel", "Flex", "Eletrico", "Hibrido" }));
 
         InputStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponivel", "Manutencao" }));
 
