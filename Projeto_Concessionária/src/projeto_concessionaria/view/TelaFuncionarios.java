@@ -32,6 +32,29 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         });
         btnExcluir.addActionListener(e -> mostrarDialogoExcluirFuncionario());
         
+        Funcionario f1 = new Funcionario("Carlos Silva", "123.456.789-00", "(11) 99999-0001", "carlos.silva@email.com", CargoFuncionario.GERENTE, "carloss", "senha123");
+        Funcionario f2 = new Funcionario("Ana Pereira", "234.567.890-11", "(11) 99999-0002", "ana.pereira@email.com", CargoFuncionario.GERENTE, "anap", "senha123");
+        Funcionario f3 = new Funcionario("João Souza", "345.678.901-22", "(11) 99999-0003", "joao.souza@email.com", CargoFuncionario.GERENTE, "joaos", "senha123");
+        Funcionario f4 = new Funcionario("Mariana Lima", "456.789.012-33", "(11) 99999-0004", "mariana.lima@email.com", CargoFuncionario.GERENTE, "marianal", "senha123");
+        Funcionario f5 = new Funcionario("Pedro Santos", "567.890.123-44", "(11) 99999-0005", "pedro.santos@email.com", CargoFuncionario.GERENTE, "pedros", "senha123");
+        Funcionario f6 = new Funcionario("Juliana Costa", "678.901.234-55", "(11) 99999-0006", "juliana.costa@email.com", CargoFuncionario.GERENTE, "julianac", "senha123");
+        Funcionario f7 = new Funcionario("Lucas Rocha", "789.012.345-66", "(11) 99999-0007", "lucas.rocha@email.com", CargoFuncionario.GERENTE, "lucasr", "senha123");
+        Funcionario f8 = new Funcionario("Beatriz Almeida", "890.123.456-77", "(11) 99999-0008", "beatriz.almeida@email.com", CargoFuncionario.GERENTE, "beatriza", "senha123");
+        Funcionario f9 = new Funcionario("Rafael Oliveira", "901.234.567-88", "(11) 99999-0009", "rafael.oliveira@email.com", CargoFuncionario.GERENTE, "rafaelo", "senha123");
+        Funcionario f10 = new Funcionario("Camila Martins", "012.345.678-99", "(11) 99999-0010", "camila.martins@email.com", CargoFuncionario.GERENTE, "camilam", "senha123");
+        
+        controller.cadastrarFuncionario(f1);
+        controller.cadastrarFuncionario(f2);
+        controller.cadastrarFuncionario(f3);
+        controller.cadastrarFuncionario(f4);
+        controller.cadastrarFuncionario(f5);
+        controller.cadastrarFuncionario(f6);
+        controller.cadastrarFuncionario(f7);
+        controller.cadastrarFuncionario(f8);
+        controller.cadastrarFuncionario(f9);
+        controller.cadastrarFuncionario(f10);
+        
+        atualizarTabela();
     }
     
     
@@ -249,7 +272,6 @@ public class TelaFuncionarios extends javax.swing.JPanel {
     txtEmail.setText("");
     txtLogin.setText("");
     txtSenha.setText("");
-    txtCargo.setText(""); 
 }
 
 
@@ -284,11 +306,11 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         txtNomeCompleto = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtCargo = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         btnConfirmarCadastro = new javax.swing.JButton();
         btnCancelarCadastro = new javax.swing.JButton();
+        CargoComboBox = new javax.swing.JComboBox<>();
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -434,12 +456,6 @@ public class TelaFuncionarios extends javax.swing.JPanel {
             }
         });
 
-        txtCargo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCargoActionPerformed(evt);
-            }
-        });
-
         txtLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginActionPerformed(evt);
@@ -465,6 +481,8 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                 btnCancelarCadastroActionPerformed(evt);
             }
         });
+
+        CargoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerente", "Funcionario" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -494,18 +512,17 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNomeCompleto))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnConfirmarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCargo))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtLogin)))
+                        .addComponent(txtLogin))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnConfirmarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnCancelarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CargoComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -524,13 +541,13 @@ public class TelaFuncionarios extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CargoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -592,7 +609,7 @@ public class TelaFuncionarios extends javax.swing.JPanel {
     String email = txtEmail.getText();
     String login = txtLogin.getText();
     String senha = new String(txtSenha.getPassword());
-    CargoFuncionario cargo = CargoFuncionario.valueOf(txtCargo.getText());
+    CargoFuncionario cargo = CargoFuncionario.valueOf(CargoComboBox.getSelectedItem().toString().toUpperCase());
     
 
     Funcionario novoFuncionario = new Funcionario(nome, cpf, telefone, email, cargo, login, senha);
@@ -647,16 +664,13 @@ public class TelaFuncionarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCargoActionPerformed
-
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         atualizarTabela();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CargoComboBox;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCancelarCadastro;
@@ -677,7 +691,6 @@ public class TelaFuncionarios extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tabelaFuncionario;
     private javax.swing.JFormattedTextField txtCPF;
-    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNomeCompleto;

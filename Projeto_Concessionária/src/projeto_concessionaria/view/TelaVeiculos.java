@@ -46,10 +46,27 @@ public class TelaVeiculos extends javax.swing.JPanel {
         this.UsuarioLogado = UsuarioLogado;
         
         
-        Veiculo v1 = new Veiculo("Honda", "Civic", "gab-123", 2014, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "123", 79.90);
-        Veiculo v2 = new Veiculo("Nissan", "Kicks", "gab-123", 2014, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "321", 79.90);
+        Veiculo v1 = new Veiculo("Honda", "Civic", "ABC-001", 2014, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "123", 79.90);
+        Veiculo v2 = new Veiculo("Nissan", "Kicks", "ABC-002", 2014, "Prata", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "321", 79.90);
+        Veiculo v3 = new Veiculo("Toyota", "Corolla", "ABC-003", 2015, "Branco", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "456", 85.50);
+        Veiculo v4 = new Veiculo("Ford", "Focus", "ABC-004", 2013, "Vermelho", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "654", 78.00);
+        Veiculo v5 = new Veiculo("Chevrolet", "Onix", "ABC-005", 2016, "Cinza", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "789", 82.75);
+        Veiculo v6 = new Veiculo("Volkswagen", "Golf", "ABC-006", 2017, "Azul", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "987", 90.00);
+        Veiculo v7 = new Veiculo("Hyundai", "HB20", "ABC-007", 2018, "Preto", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "159", 74.90);
+        Veiculo v8 = new Veiculo("Fiat", "Argo", "ABC-008", 2015, "Branco", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "951", 77.30);
+        Veiculo v9 = new Veiculo("Renault", "Sandero", "ABC-009", 2016, "Prata", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "357", 76.80);
+        Veiculo v10 = new Veiculo("Jeep", "Renegade", "ABC-010", 2019, "Verde", TipoCombustivel.DIESEL, 92.0, Status.DISPONIVEL, "753", 95.40);
+
         controller.cadastrarVeiculo(v1);
         controller.cadastrarVeiculo(v2);
+        controller.cadastrarVeiculo(v3);
+        controller.cadastrarVeiculo(v4);
+        controller.cadastrarVeiculo(v5);
+        controller.cadastrarVeiculo(v6);
+        controller.cadastrarVeiculo(v7);
+        controller.cadastrarVeiculo(v8);
+        controller.cadastrarVeiculo(v9);
+        controller.cadastrarVeiculo(v10);
         preencherTabelaVeiculos(); 
     }
     

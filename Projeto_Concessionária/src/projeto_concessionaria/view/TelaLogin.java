@@ -20,8 +20,28 @@ public class TelaLogin extends javax.swing.JPanel {
     
     public TelaLogin(JFrame framePai) {
         this.framePai = framePai;
-        Funcionario Gab = new Funcionario("funcionario", "cpf do funcionario", "Telefone", "Email", CargoFuncionario.GERENTE, "funcionario", "senha");
-        ControllerDoFuncionario.cadastrarFuncionario(Gab);
+        Funcionario f1 = new Funcionario("Carlos Silva", "123.456.789-00", "(11) 99999-0001", "carlos.silva@email.com", CargoFuncionario.GERENTE, "carloss", "senha123");
+        Funcionario f2 = new Funcionario("Ana Pereira", "234.567.890-11", "(11) 99999-0002", "ana.pereira@email.com", CargoFuncionario.GERENTE, "anap", "senha123");
+        Funcionario f3 = new Funcionario("João Souza", "345.678.901-22", "(11) 99999-0003", "joao.souza@email.com", CargoFuncionario.GERENTE, "joaos", "senha123");
+        Funcionario f4 = new Funcionario("Mariana Lima", "456.789.012-33", "(11) 99999-0004", "mariana.lima@email.com", CargoFuncionario.GERENTE, "marianal", "senha123");
+        Funcionario f5 = new Funcionario("Pedro Santos", "567.890.123-44", "(11) 99999-0005", "pedro.santos@email.com", CargoFuncionario.GERENTE, "pedros", "senha123");
+        Funcionario f6 = new Funcionario("Juliana Costa", "678.901.234-55", "(11) 99999-0006", "juliana.costa@email.com", CargoFuncionario.GERENTE, "julianac", "senha123");
+        Funcionario f7 = new Funcionario("Lucas Rocha", "789.012.345-66", "(11) 99999-0007", "lucas.rocha@email.com", CargoFuncionario.GERENTE, "lucasr", "senha123");
+        Funcionario f8 = new Funcionario("Beatriz Almeida", "890.123.456-77", "(11) 99999-0008", "beatriz.almeida@email.com", CargoFuncionario.GERENTE, "beatriza", "senha123");
+        Funcionario f9 = new Funcionario("Rafael Oliveira", "901.234.567-88", "(11) 99999-0009", "rafael.oliveira@email.com", CargoFuncionario.GERENTE, "rafaelo", "senha123");
+        Funcionario f10 = new Funcionario("Camila Martins", "012.345.678-99", "(11) 99999-0010", "camila.martins@email.com", CargoFuncionario.GERENTE, "camilam", "senha123");
+        
+        ControllerDoFuncionario.cadastrarFuncionario(f1);
+        ControllerDoFuncionario.cadastrarFuncionario(f2);
+        ControllerDoFuncionario.cadastrarFuncionario(f3);
+        ControllerDoFuncionario.cadastrarFuncionario(f4);
+        ControllerDoFuncionario.cadastrarFuncionario(f5);
+        ControllerDoFuncionario.cadastrarFuncionario(f6);
+        ControllerDoFuncionario.cadastrarFuncionario(f7);
+        ControllerDoFuncionario.cadastrarFuncionario(f8);
+        ControllerDoFuncionario.cadastrarFuncionario(f9);
+        ControllerDoFuncionario.cadastrarFuncionario(f10);
+
         initComponents();
     }
 

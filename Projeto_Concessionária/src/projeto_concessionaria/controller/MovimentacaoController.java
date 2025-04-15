@@ -27,7 +27,7 @@ public class MovimentacaoController {
     }
 
     public boolean registrarEntrada(Veiculo v, Funcionario responsavel) {
-        MovimentacaoEstoque entrada = new MovimentacaoEstoque(TipoMovimentacao.CRIAÇÃO , v, responsavel);
+        MovimentacaoEstoque entrada = new MovimentacaoEstoque(TipoMovimentacao.CRIAÇÃO,  v, responsavel);
         return historico.add(entrada);
     }
 
